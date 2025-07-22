@@ -93,6 +93,24 @@ graph LR
    streamlit run app.py
    ```
 
+## 📱 Demo
+
+## 📱 Demo
+
+## 📱 Demo
+
+### 🖥️ Book Selection Interface
+<div align="center">
+  <img src="screenshots/book-selection.png" alt="Book Selection Interface" style="max-width: 100%; height: auto;"/>
+  <p><em>Clean dropdown interface to search and select books from the database</em></p>
+</div>
+
+### 📚 AI-Powered Recommendations
+<div align="center">
+  <img src="screenshots/recommendations.png" alt="Book Recommendations with Covers" style="max-width: 100%; height: auto;"/>
+  <p><em>Get personalized recommendations with book covers and detailed information - here showing Harry Potter series recommendations</em></p>
+</div>
+
 ## 💻 Usage
 
 1. Open your browser and navigate to `http://localhost:8501`
@@ -109,6 +127,10 @@ graph LR
 ├── 📋 requirements.txt          # Python dependencies
 ├── 🤖 model.pkl                 # Trained ML model (generated)
 ├── 📊 data/                     # Dataset directory
+├── 📸 screenshots/              # Application screenshots
+│   ├── homepage.png
+│   ├── recommendations.png
+│   └── search-filter.png
 ├── 📚 README.md                 # This file
 └── 🔧 utils/                    # Utility functions
 ```

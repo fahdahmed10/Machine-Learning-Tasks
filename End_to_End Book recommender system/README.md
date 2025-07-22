@@ -8,7 +8,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 
-*Discover your next favorite book with the power of machine learning*
+*Discover your next favorite book with the power of unsupervised machine learning*
 
 [Demo](#demo) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Contributing](#contributing)
 
@@ -18,51 +18,51 @@
 
 ## 🎯 Overview
 
-In today's fast-paced world, finding the perfect book can be overwhelming with millions of options available. Our **AI-Powered Book Recommender System** uses **K-Nearest Neighbors (KNN) clustering algorithm** to implement collaborative filtering, finding users with similar reading preferences and recommending books they loved.
+In today's fast-paced world, finding the perfect book can be overwhelming with millions of options available. Our **AI-Powered Book Recommender System** uses **unsupervised nearest neighbor clustering** to implement collaborative filtering, grouping books with similar characteristics and recommending titles that readers with similar preferences have loved.
 
-> **Why KNN for Collaborative Filtering?** It creates precise user clusters based on rating patterns and uses Euclidean distance to find your reading "neighbors" - users who rate books just like you do!
+> **Why Unsupervised Clustering for Book Recommendations?** It automatically discovers hidden patterns in reading preferences, creating natural clusters of similar books based on user rating behaviors without requiring predefined categories!
 
 ## ✨ Features
 
-- 🤖 **KNN-Based Collaborative Filtering** - Uses K-Nearest Neighbors clustering algorithm
-- 📏 **Euclidean Distance Matching** - Precise similarity calculations between users
+- 🤖 **Unsupervised Clustering** - Uses nearest neighbor clustering to group similar books
+- 📏 **Distance-Based Matching** - Precise similarity calculations between books
 - 🎨 **Beautiful UI** - Clean, modern Streamlit interface
-- ⚡ **Real-time Clustering** - Instant user similarity detection and recommendations
+- ⚡ **Real-time Clustering** - Instant book similarity detection and recommendations
 - 👥 **Community-Driven** - Leverages collective user preferences and ratings
-- 🎯 **Optimized K Parameter** - Fine-tuned neighbor count for best results
+- 🎯 **Automatic Pattern Discovery** - No manual categorization needed
 
 ## 🧠 How It Works
 
-### Collaborative Filtering with K-Nearest Neighbors
+### Collaborative Filtering with Unsupervised Clustering
 
-Our system uses **Collaborative Filtering** implemented through the **K-Nearest Neighbors (KNN)** algorithm - a powerful clustering approach that finds similar users based on their book ratings and preferences.
+Our system uses **Collaborative Filtering** implemented through **unsupervised nearest neighbor clustering** - a powerful approach that automatically groups books with similar rating patterns and characteristics.
 
-> *"Find users who rated books similarly to you, then recommend books they loved that you haven't read yet."*
+> *"Find books that are clustered as similar to your selection based on how users have rated them, then recommend the most similar books from the same cluster."*
 
 | Step | Process | Description |
 |------|---------|-------------|
-| **1** | 📊 **Create User-Item Matrix** | Build matrix of users × books with ratings |
-| **2** | 📏 **Calculate Distances** | Use Euclidean distance to measure user similarity |
-| **3** | 👥 **Find K-Nearest Neighbors** | Identify the most similar users (clusters) |
-| **4** | 📚 **Generate Recommendations** | Suggest highly-rated books from similar users |
+| **1** | 📊 **Create Book-Rating Matrix** | Build matrix of books × users with ratings |
+| **2** | 📏 **Calculate Book Distances** | Use distance metrics to measure book similarity |
+| **3** | 👥 **Form Book Clusters** | Group books with similar rating patterns |
+| **4** | 📚 **Generate Recommendations** | Suggest highly similar books from the same cluster |
 
-### K-Nearest Neighbors Algorithm Flow
+### Unsupervised Clustering Algorithm Flow
 
 ```mermaid
 graph LR
-    A[Selected Book] --> B[Find All Users Who Rated This Book]
-    B --> C[Calculate Euclidean Distances Between Users]
-    C --> D[Find K Nearest Neighbors]
-    D --> E[Get Their Top-Rated Books]
-    E --> F[Rank & Display Recommendations]
+    A[Selected Book] --> B[Find Book's Cluster]
+    B --> C[Calculate Similarities Within Cluster]
+    C --> D[Rank Similar Books]
+    D --> E[Get Top-Rated Similar Books]
+    E --> F[Display Recommendations]
 ```
 
-### Why KNN for Collaborative Filtering?
+### Why Unsupervised Clustering for Book Recommendations?
 
-- **🎯 Accurate Clustering** - Groups users with similar reading preferences
-- **📏 Distance-Based** - Uses Euclidean distance for precise similarity measurement  
+- **🎯 Pattern Discovery** - Automatically finds hidden relationships between books
+- **📏 Distance-Based** - Uses advanced distance metrics for precise similarity measurement  
 - **⚡ Efficient** - Fast computation for real-time recommendations
-- **🔄 Adaptable** - Easy to tune K parameter for optimal results
+- **🔄 Adaptive** - Discovers new patterns as more books and ratings are added
 
 ## 🚀 Quick Start
 
@@ -108,10 +108,6 @@ graph LR
 
 ## 📱 Demo
 
-## 📱 Demo
-
-## 📱 Demo
-
 ### 🖥️ Book Selection Interface
 <div align="center">
   <img src="screenshots/book-selection.png" alt="Book Selection Interface" style="max-width: 100%; height: auto;"/>
@@ -121,7 +117,7 @@ graph LR
 ### 📚 AI-Powered Recommendations
 <div align="center">
   <img src="screenshots/recommendations.png" alt="Book Recommendations with Covers" style="max-width: 100%; height: auto;"/>
-  <p><em>Get personalized recommendations with book covers and detailed information - here showing Harry Potter series recommendations</em></p>
+  <p><em>Get personalized recommendations with book covers and detailed information based on unsupervised clustering analysis</em></p>
 </div>
 
 ## 💻 Usage
@@ -129,7 +125,7 @@ graph LR
 1. Open your browser and navigate to `http://localhost:8501`
 2. **Select a book** from the dropdown menu that you've enjoyed
 3. Click **"Show Recommendation"** button
-4. Get instant recommendations based on users with similar reading preferences
+4. Get instant recommendations based on books clustered as similar to your selection
 5. Explore book covers and details of recommended books
 
 ## 📁 Project Structure
@@ -139,12 +135,11 @@ graph LR
 ├── 📄 app.py                    # Main Streamlit application
 ├── 📓 Books Recommender.ipynb   # Model training notebook
 ├── 📋 requirements.txt          # Python dependencies
-├── 🤖 model.pkl                 # Trained ML model (generated)
+├── 🤖 model.pkl                 # Trained clustering model (generated)
 ├── 📊 data/                     # Dataset directory
 ├── 📸 screenshots/              # Application screenshots
-│   ├── homepage.png
-│   ├── recommendations.png
-│   └── search-filter.png
+│   ├── book-selection.png
+│   └── recommendations.png
 ├── 📚 README.md                 # This file
 └── 🔧 utils/                    # Utility functions
 ```
@@ -156,7 +151,7 @@ graph LR
 | Category | Technologies |
 |----------|-------------|
 | **Backend** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white) ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white) |
-| **Algorithm** | ![KNN](https://img.shields.io/badge/K--Nearest_Neighbors-4CAF50?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+&logoColor=white) ![Euclidean Distance](https://img.shields.io/badge/Euclidean_Distance-2196F3?style=flat) |
+| **Algorithm** | ![Clustering](https://img.shields.io/badge/Unsupervised_Clustering-4CAF50?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+&logoColor=white) ![Distance Metrics](https://img.shields.io/badge/Distance_Metrics-2196F3?style=flat) |
 | **Frontend** | ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white) |
 | **Data Processing** | ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white) |
 | **Development** | ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white) |
@@ -173,13 +168,13 @@ The recommendation system is built using the comprehensive **Book Recommendation
 
 ## 🔮 Future Roadmap
 
-- [ ] **Optimize K Parameter** - Implement cross-validation to find optimal K value
+- [ ] **Optimize Clustering Parameters** - Fine-tune cluster sizes and distance metrics
 - [ ] **Advanced Distance Metrics** - Experiment with cosine similarity and Manhattan distance
-- [ ] **Weighted KNN** - Give more weight to closer neighbors in recommendations
+- [ ] **Hierarchical Clustering** - Implement multi-level book categorization
 - [ ] **User Profiles** - Add authentication and rating history
-- [ ] **Real-time Model Updates** - Retrain KNN model as new ratings come in
-- [ ] **Performance Optimization** - Use approximate nearest neighbors for large datasets
-- [ ] **API Integration** - Connect with book databases for more user rating data
+- [ ] **Dynamic Clustering** - Update clusters as new books and ratings are added
+- [ ] **Performance Optimization** - Use approximate clustering for large datasets
+- [ ] **API Integration** - Connect with book databases for more comprehensive data
 
 ## 🤝 Contributing
 

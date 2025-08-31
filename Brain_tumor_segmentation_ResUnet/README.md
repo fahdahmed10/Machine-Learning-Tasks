@@ -217,16 +217,6 @@ graph TD
 - **Rapid Initial Learning**: Significant improvement in first 20 epochs
 - **Stable Performance**: Metrics plateau around epoch 40-50
 
-### 🔹 Segmentation Metrics Evolution
-
-![Dice and IoU Evolution](plots/Dice_IOU.png)
-
-**Metric Analysis:**
-- **Dice Coefficient**: Rises from ~0.2 to **0.89** (exceptional overlap)
-- **IoU Score**: Improves from ~0.1 to **0.84** (precise boundaries)
-- **Consistent Growth**: Both metrics show steady, stable improvement
-- **Medical Grade Performance**: Results exceed clinical accuracy thresholds
-
 ### 🔹 Final Evaluation Results
 
 ![Final Metrics](plots/evaluation_metrics.png)

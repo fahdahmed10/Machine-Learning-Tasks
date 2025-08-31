@@ -125,92 +125,51 @@ Brain_tumor_segmentation_ResUNet/
 
 ## 🏗️ ResUNet Architecture Visualization
 
-### 🔹 ResUNet Architecture - The Perfect U-Shape
+### 🔹 Interactive Model Architecture
 
-```
-                                   📥 INPUT
-                              ┌─────────────────┐
-                              │  MRI Image      │
-                              │  256×256×1      │
-                              └─────────────────┘
-                                       │
-                                       ▼
-                    ┌─────────────────────────────────────┐
-                    │         🔵 ENCODER PATH             │
-                    │      (Contracting Path)             │
-         ┌──────────┴──────────┐                         │
-         │  Conv 256×256×64    │                         │
-         │  Conv 256×256×64    │ ────────┐               │
-         └──────────┬──────────┘         │               │
-                    │ MaxPool            │               │
-                    ▼                    │               │
-         ┌──────────────────────┐        │               │
-         │  Conv 128×128×128    │        │               │
-         │  Conv 128×128×128    │ ───────│──┐            │
-         └──────────┬───────────┘        │  │            │
-                    │ MaxPool            │  │            │
-                    ▼                    │  │            │
-         ┌──────────────────────┐        │  │            │
-         │  Conv 64×64×256      │        │  │            │
-         │  Conv 64×64×256      │ ───────│──│──┐         │
-         └──────────┬───────────┘        │  │  │         │
-                    │ MaxPool            │  │  │         │
-                    ▼                    │  │  │         │
-         ┌──────────────────────┐        │  │  │         │
-         │  Conv 32×32×512      │        │  │  │         │
-         │  Conv 32×32×512      │ ───────│──│──│──┐      │
-         └──────────┬───────────┘        │  │  │  │      │
-                    │ MaxPool            │  │  │  │      │
-                    ▼                    │  │  │  │      │
-    ┌─────────────────────────────────────│──│──│──│──────┴─┐
-    │              🔥 BOTTLENECK          │  │  │  │        │
-    │           Conv 16×16×1024           │  │  │  │        │
-    │           Conv 16×16×1024           │  │  │  │        │
-    └─────────────────────────────────────│──│──│──│──────┬─┘
-                    ▲                    │  │  │  │      │
-                    │ UpConv             │  │  │  │      │
-                    ┌──────────┴───────────┐        │  │  │  │      │
-         │         🟢 DECODER PATH             │  │  │  │      │
-         │      (Expanding Path)               │  │  │  │      │
-         ┌──────────────────────┐        │  │  │  │      │
-         │ UpConv 32×32×512     │        │  │  │  │      │
-         │ Concat + Conv        │ ◄──────┘  │  │  │      │
-         │ Conv 32×32×512       │           │  │  │      │
-         └──────────┬───────────┘           │  │  │      │
-                    │ UpConv                │  │  │      │
-                    ▼                       │  │  │      │
-         ┌──────────────────────┐           │  │  │      │
-         │ UpConv 64×64×256     │           │  │  │      │
-         │ Concat + Conv        │ ◄─────────┘  │  │      │
-         │ Conv 64×64×256       │              │  │      │
-         └──────────┬───────────┘              │  │      │
-                    │ UpConv                   │  │      │
-                    ▼                          │  │      │
-         ┌──────────────────────┐              │  │      │
-         │ UpConv 128×128×128   │              │  │      │
-         │ Concat + Conv        │ ◄────────────┘  │      │
-         │ Conv 128×128×128     │                 │      │
-         └──────────┬───────────┘                 │      │
-                    │ UpConv                      │      │
-                    ▼                             │      │
-         ┌──────────────────────┐                 │      │
-         │ UpConv 256×256×64    │                 │      │
-         │ Concat + Conv        │ ◄───────────────┘      │
-         │ Conv 256×256×64      │                        │
-         └──────────┬───────────┘                        │
-                    │                                    │
-                    ▼                                    │
-                ┌─────────────────┐                     │
-                │  Output Conv    │                     │
-                │  256×256×1      │                     │
-                │  Sigmoid        │                     │
-                └─────────────────┘                     │
-                         │                              │
-                         ▼                              │
-                 📤 SEGMENTATION MASK                    │
-                                                        │
-                    Skip Connections ───────────────────┘
-                   (Preserve Details)
+```mermaid
+graph TD
+    A[MRI Input<br/>256×256×1] --> B[Conv Block 1<br/>256×256×64]
+    B --> C[MaxPool<br/>128×128×64]
+    C --> D[Conv Block 2<br/>128×128×128]
+    D --> E[MaxPool<br/>64×64×128]
+    E --> F[Conv Block 3<br/>64×64×256]
+    F --> G[MaxPool<br/>32×32×256]
+    G --> H[Conv Block 4<br/>32×32×512]
+    H --> I[MaxPool<br/>16×16×512]
+    
+    I --> J[Bottleneck<br/>16×16×1024]
+    
+    J --> K[UpConv 1<br/>32×32×512]
+    K --> L[Concat + Conv<br/>32×32×512]
+    L --> M[UpConv 2<br/>64×64×256]
+    M --> N[Concat + Conv<br/>64×64×256]
+    N --> O[UpConv 3<br/>128×128×128]
+    O --> P[Concat + Conv<br/>128×128×128]
+    P --> Q[UpConv 4<br/>256×256×64]
+    Q --> R[Concat + Conv<br/>256×256×64]
+    
+    R --> S[Output Conv<br/>256×256×1]
+    S --> T[Sigmoid<br/>Binary Mask]
+    
+    %% Skip Connections
+    H -.->|Skip Connection| L
+    F -.->|Skip Connection| N
+    D -.->|Skip Connection| P
+    B -.->|Skip Connection| R
+    
+    classDef input fill:#e1f5fe
+    classDef encoder fill:#fff3e0
+    classDef bottleneck fill:#fce4ec
+    classDef decoder fill:#e8f5e8
+    classDef output fill:#f3e5f5
+    classDef skip fill:#fff,stroke:#ff6b6b,stroke-width:2px,stroke-dasharray: 5 5
+    
+    class A input
+    class B,C,D,E,F,G,H,I encoder
+    class J bottleneck
+    class K,L,M,N,O,P,Q,R decoder
+    class S,T output
 ```
 
 ### 🔹 Dataset Information
@@ -222,11 +181,10 @@ Brain_tumor_segmentation_ResUNet/
 - **Clinical Focus**: Lower Grade Glioma (LGG) segmentation
 
 **🔑 Key Architecture Features:**
-- **Skip Connections**: Dotted red lines preserve spatial information from encoder to decoder
-- **Progressive Downsampling**: 256→128→64→32→16 (captures multi-scale features)
-- **Symmetric Upsampling**: 16→32→64→128→256 (reconstructs full resolution)
+- **Skip Connections**: Dotted red lines preserve spatial information
+- **Progressive Downsampling**: 128→64→32→16→8 (captures multi-scale features)
+- **Symmetric Upsampling**: 8→16→32→64→128 (reconstructs full resolution)
 - **Residual Learning**: Enables deeper networks without gradient vanishing
-- **Feature Channels**: 64→128→256→512→1024 progressive feature extraction
 
 ---
 

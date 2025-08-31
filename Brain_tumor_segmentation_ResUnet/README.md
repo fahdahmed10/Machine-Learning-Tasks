@@ -182,8 +182,8 @@ graph TD
 
 **🔑 Key Architecture Features:**
 - **Skip Connections**: Dotted red lines preserve spatial information
-- **Progressive Downsampling**: 128→64→32→16→8 (captures multi-scale features)
-- **Symmetric Upsampling**: 8→16→32→64→128 (reconstructs full resolution)
+- **Progressive Downsampling**
+- **Symmetric Upsampling**
 - **Residual Learning**: Enables deeper networks without gradient vanishing
 
 ---

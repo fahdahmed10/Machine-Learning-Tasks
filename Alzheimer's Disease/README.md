@@ -76,7 +76,7 @@ graph LR
     style F fill:#2196f3
 ```
 
-## 📊 Performance Metrics
+## 📊 Performance Metrics & Visualizations
 
 ### Overall Model Performance
 
@@ -95,6 +95,54 @@ graph LR
 | **ModerateDemented** | 1.000 | 1.000 | 1.000 | 1026 | Perfect classification of moderate dementia |
 | **NonDemented** | 0.992 | 0.997 | 0.995 | 1265 | Excellent healthy brain identification |
 | **VeryMildDemented** | 0.998 | 0.990 | 0.995 | 1088 | Strong performance on subtle cognitive changes |
+
+### Training Progress
+
+![Training Accuracy](evaluation_metrics/training_Accuracy.png)
+
+**Training Accuracy Analysis:**
+- Rapid convergence to high accuracy levels
+- Minimal overfitting observed between training and validation curves
+- Stable performance indicating robust learning
+
+### Confusion Matrix Analysis
+
+#### Training Phase Performance
+![Training Confusion Matrix](evaluation_metrics/training_confusion_matrix.png)
+
+#### Test Phase Performance  
+![Test Confusion Matrix](evaluation_metrics/test_confusion_matrix.png)
+
+**Confusion Matrix Insights:**
+- **Strong Diagonal Dominance**: Indicates excellent class separation across all dementia stages
+- **Minimal Misclassification**: Off-diagonal values are extremely low, showing rare prediction errors
+- **Consistent Performance**: Both training and test matrices show similar patterns, indicating good generalization
+
+### ROC Curve Analysis
+
+#### Training ROC Curves
+![Training ROC Curves](evaluation_metrics/training_ROC_Curves.png)
+
+#### Test ROC Curves
+![Test ROC Curves](evaluation_metrics/test_ROC_Curves.png)
+
+**ROC Performance Insights:**
+- **AUC Scores Near 1.0**: All classes achieve AUC ≥ 0.98, indicating excellent discriminative capability
+- **Rapid Curve Rise**: Sharp climb toward top-left corner demonstrates high sensitivity with minimal false positives
+- **Class Balance**: All dementia stages show equally strong ROC performance
+
+### Validation Performance
+
+![Validation Accuracy](evaluation_metrics/validation_Accuracy.png)
+
+![Validation Confusion Matrix](evaluation_metrics/validation_confusion_matrix.png)
+
+![Validation ROC Curves](evaluation_metrics/validation_ROC_Curves.png)
+
+**Validation Set Analysis:**
+- **Consistent Accuracy**: Validation performance matches training trends
+- **No Overfitting**: Similar confusion matrix patterns across training/validation/test
+- **Robust Generalization**: ROC curves maintain high AUC scores on unseen data
 
 ## 📈 Metrics Explanation
 

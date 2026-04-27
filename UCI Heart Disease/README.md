@@ -278,6 +278,112 @@ The scratch Naive Bayes model is evaluated with:
 
 ---
 
+## Results & Metrics
+
+### Dataset Summary
+
+| Property           | Value             |
+|--------------------|-------------------|
+| Total patients     | 920               |
+| Training set size  | 736 (80%)         |
+| Test set size      | 184 (20%)         |
+| Features after encoding | 13          |
+
+### Descriptive Statistics — Quantitative Features
+
+| Feature    | Mean    | Median | Mode  | Std Dev | Min  | Q1     | Q3    | Max   |
+|------------|---------|--------|-------|---------|------|--------|-------|-------|
+| `age`      | 53.511  | 54.0   | 54.0  | 9.425   | 28.0 | 47.0   | 60.0  | 77.0  |
+| `trestbps` | 132.137 | 130.0  | 130.0 | 17.930  | 80.0 | 120.0  | 140.0 | 200.0 |
+| `chol`     | 244.030 | 236.0  | 236.0 | 52.011  | 85.0 | 217.75 | 267.0 | 603.0 |
+| `thalch`   | 137.692 | 140.0  | 140.0 | 25.145  | 60.0 | 120.0  | 156.0 | 202.0 |
+| `oldpeak`  | 0.853   | 0.5    | 0.0   | 1.058   | -2.6 | 0.0    | 1.5   | 6.2   |
+
+### Frequency Tables — Categorical Features
+
+**Sex**
+
+| Category | Count | Percent |
+|----------|-------|---------|
+| Male     | 726   | 78.91%  |
+| Female   | 194   | 21.09%  |
+
+**Chest Pain Type (`cp`)**
+
+| Category        | Count | Percent |
+|-----------------|-------|---------|
+| Asymptomatic    | 496   | 53.91%  |
+| Non-anginal     | 204   | 22.17%  |
+| Atypical Angina | 174   | 18.91%  |
+| Typical Angina  | 46    | 5.00%   |
+
+**Fasting Blood Sugar (`fbs`)**
+
+| Category | Count | Percent |
+|----------|-------|---------|
+| False    | 782   | 85.00%  |
+| True     | 138   | 15.00%  |
+
+**Resting ECG (`restecg`)**
+
+| Category          | Count | Percent |
+|-------------------|-------|---------|
+| Normal            | 553   | 60.11%  |
+| LV Hypertrophy    | 188   | 20.43%  |
+| ST-T Abnormality  | 179   | 19.46%  |
+
+**Exercise-Induced Angina (`exang`)**
+
+| Category | Count | Percent |
+|----------|-------|---------|
+| False    | 583   | 63.37%  |
+| True     | 337   | 36.63%  |
+
+---
+
+### Normality Test Results (Training Set)
+
+| Feature                    | Shapiro-Wilk Stat | Shapiro p-value | Anderson Stat | Normal? |
+|----------------------------|-------------------|-----------------|---------------|---------|
+| `age`                      | 0.992             | 0.0007          | 1.737         | No (but visually approx. Gaussian) |
+| `sex`                      | 0.500             | 0.0000          | 192.092       | No (binary) |
+| `trestbps`                 | 0.969             | 0.0000          | 7.157         | No (right-skewed) |
+| `chol`                     | 0.877             | 0.0000          | 21.562        | No (heavily right-skewed) |
+| `fbs`                      | 0.421             | 0.0000          | 219.819       | No (binary) |
+| `thalch`                   | 0.990             | 0.0000          | 1.935         | No (but visually approx. Gaussian) |
+| `exang`                    | 0.609             | 0.0000          | 145.141       | No (binary) |
+| `oldpeak`                  | 0.855             | 0.0000          | 40.516        | No (zero-inflated) |
+| `cp_atypical angina`       | 0.480             | 0.0000          | 199.506       | No (binary) |
+| `cp_non-anginal`           | 0.512             | 0.0000          | 187.185       | No (binary) |
+| `cp_typical angina`        | 0.213             | 0.0000          | 267.454       | No (binary, sparse) |
+| `restecg_normal`           | 0.623             | 0.0000          | 138.641       | No (binary) |
+| `restecg_st-t abnormality` | 0.485             | 0.0000          | 197.762       | No (binary) |
+
+> **Note:** All Anderson-Darling tests reject normality at all significance levels (15%, 10%, 5%, 2.5%, 1%). Binary features are expected to fail normality tests by design.
+
+---
+
+### Model Performance — Test Set Accuracy
+
+| Model                            | Test Accuracy | Train Accuracy |
+|----------------------------------|---------------|----------------|
+| **Naive Bayes (from scratch)**   | **78.80%**    | 80.57%         |
+| Gaussian Naive Bayes (sklearn)   | 78.80%        | —              |
+| Logistic Regression              | 80.98%        | —              |
+| Random Forest (300 trees)        | 80.43%        | —              |
+| SVM (RBF kernel)                 | **81.52%**    | —              |
+
+> The scratch implementation matches sklearn's GaussianNB exactly, confirming correctness. SVM achieves the highest test accuracy at **81.52%**, followed closely by Logistic Regression at **80.98%**.
+
+### Observations
+
+- The small gap between train accuracy (80.57%) and test accuracy (78.80%) for Naive Bayes indicates minimal overfitting.
+- All models perform within a narrow ~3% band (78.8% – 81.5%), suggesting the feature set has a natural accuracy ceiling under these conditions.
+- SVM's RBF kernel likely benefits from capturing non-linear boundaries that the linear Logistic Regression and the independence-assuming Naive Bayes cannot model as well.
+- Random Forest (80.43%) performs slightly below SVM, possibly because 300 trees is more than necessary for this dataset size (736 training samples).
+
+---
+
 ## Feature Reference
 
 | Symbol       | Full Name                          | Unit / Values          |
